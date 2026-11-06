@@ -3,6 +3,7 @@ import express from "express";
 import helmet from "helmet";
 import { env } from "./config/env";
 import { errorHandler, notFoundHandler } from "./middlewares/error-handler";
+import { authRoutes } from "./modules/auth/auth.routes";
 
 export function createApp() {
   const app = express();
@@ -15,7 +16,9 @@ export function createApp() {
     res.json({ status: "ok" });
   });
 
-  // Rotas dos módulos entram aqui (PR 2 e PR 3)
+  app.use("/auth", authRoutes);
+
+  // Rotas dos módulos entram aqui (PR 3)
 
   app.use(notFoundHandler);
   app.use(errorHandler);
